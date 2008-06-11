@@ -30,6 +30,8 @@ Rails::Initializer.run do |config|
   config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
   config.gem "launchy"
   config.gem "defunkt-github", :lib => 'github', :source => "http://gems.github.com"
+  config.gem "ruby-xslt", :lib => "xml/xslt"
+  config.gem "libxml-ruby", :lib => "xml/libxml"
     
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
