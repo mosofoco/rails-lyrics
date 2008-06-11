@@ -3,20 +3,21 @@ require 'xml/libxml'
 require 'xml/xslt'
 
 # XML Attribute macro
-def xattr(entity,attribute)
-  entity.find(attribute).first.child.to_s
+def xattr(xml,attribute)
+  xml.find(attribute).first.child.to_s
 end
 
 namespace :import do
   task :xslt do
     xslt = XML::XSLT.new()
-    xslt.xml = "db/xml/sample.xml"
+    xslt.xml = "db/xml/shane.xml"
     xslt.xsl = "db/xslt/itunes3.xsl"
-    xslt.save("db/output/sample.xml")
+    xslt.save("db/output/shane.xml")
   end
   
   task :xml do
-    FILES = %w(sample.xml)
+    FILES = %w(shane.xml)
+    VALID_GENRES = ["rock", "metal", "punk", "punk rock"]
     for file in FILES
       doc = XML::Document.file("#{RAILS_ROOT}/db/output/#{file}")
       tracks = doc.find('//library/track')
@@ -24,10 +25,15 @@ namespace :import do
         title = xattr(track,'title')
         artist = xattr(track,'artist')
         album = xattr(track,'album')
+        year = xattr(track,'year')
         genre = xattr(track,'genre')
         track = xattr(track,'track_number')
-        year = xattr(track,'year')
-        puts "#{artist} (#{album} - #{year}) - #{track} #{title}"
+        
+        if !VALID_GENRES.include? genre.downcase
+          next
+        end
+        
+        puts "#{artist} (#{album}) - #{title}"
       end
     end
   end
