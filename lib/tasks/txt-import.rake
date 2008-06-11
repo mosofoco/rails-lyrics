@@ -1,3 +1,5 @@
+require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
+
 namespace :import do
   task :txt do
     txts = Dir['db/txt/*/*.txt']
@@ -6,7 +8,6 @@ namespace :import do
       artist = file.split("/")[-2]
       title = file.split("/")[-1]
       title = title[0, title.length - 4]
-      puts "#{artist} - #{title}"
       
       song = Lyric.find_or_initialize_by_title_and_artist(artist,title)
       if song.body.nil? || song.body.empty?
@@ -18,7 +19,8 @@ namespace :import do
           line = line.split("\r").join("\n")
           song.body += line
         end
-        puts "Lyrics added to #{song.title} by #{art.name}"
+        song.body.gsub!("\n","<br>")
+        puts "Lyrics added to #{song.title} by #{song.artist}"
         song.save
       end
     end
