@@ -32,8 +32,16 @@ namespace :import do
         if !VALID_GENRES.include? genre.downcase
           next
         end
+
+        song = Lyric.find_or_initialize_by_title_and_artist_and_album(title,artist,album)
+        song.year = year
+        song.genre = genre
+        song.track = track
         
-        puts "#{artist} (#{album}) - #{title}"
+        puts "New song: #{title} by #{artist}" if song.id.nil?
+        
+        song.save
+
       end
     end
   end
