@@ -2,6 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
 require 'xml/libxml'
 require 'xml/xslt'
 
+# XML Attribute macro
+def xattr(entity,attribute)
+  entity.find(attribute).first.child.to_s
+end
+
 namespace :import do
   task :xslt do
     xslt = XML::XSLT.new()
@@ -11,11 +16,20 @@ namespace :import do
   end
   
   task :xml do
-    xslt = XML::XSLT.new()
-    xslt.xml = "db/xml/sample.xml"
-    xslt.xsl = "db/xslt/itunes3.xsl"
-    xml = xslt.serve()
-    
+    FILES = %w(sample.xml)
+    for file in FILES
+      doc = XML::Document.file("#{RAILS_ROOT}/db/output/#{file}")
+      tracks = doc.find('//library/track')
+      for track in tracks
+        title = xattr(track,'title')
+        artist = xattr(track,'artist')
+        album = xattr(track,'album')
+        genre = xattr(track,'genre')
+        track = xattr(track,'track_number')
+        year = xattr(track,'year')
+        puts "#{artist} (#{album} - #{year}) - #{track} #{title}"
+      end
+    end
   end
   
   task :widget do
