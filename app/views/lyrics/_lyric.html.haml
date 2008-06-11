@@ -1,0 +1,28 @@
+%div[lyric]
+  %p.title
+    %strong Title
+    = h lyric.title
+  %p.artist
+    %strong Artist
+    = h lyric.artist
+  %p.album
+    %strong Album
+    = h lyric.album
+  %p.year
+    %strong Year
+    = h lyric.year
+  %p.track
+    %strong Track
+    = h lyric.track
+  %p.genre
+    %strong Genre
+    = h lyric.genre
+  %p.body
+    %strong Body
+    = h lyric.body
+
+  = link_to 'Show', object_path(lyric)
+  |
+  = link_to 'Edit', edit_object_path(lyric)
+  |
+  = link_to 'Destroy', object_path(lyric), :confirm => 'Really destroy lyric?', :method => :delete

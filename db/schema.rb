@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080611175718) do
+ActiveRecord::Schema.define(:version => 20080611180354) do
+
+  create_table "lyrics", :force => true do |t|
+    t.string  "title"
+    t.string  "artist"
+    t.string  "album"
+    t.integer "year"
+    t.integer "track"
+    t.string  "genre"
+    t.text    "body"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
