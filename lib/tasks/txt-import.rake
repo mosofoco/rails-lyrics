@@ -1,13 +1,30 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
+require 'xml/libxml'
+require 'xml/xslt'
 
 namespace :import do
+  task :xslt do
+    xslt = XML::XSLT.new()
+    xslt.xml = "db/xml/sample.xml"
+    xslt.xsl = "db/xslt/itunes3.xsl"
+    xslt.save("db/output/sample.xml")
+  end
+  
+  task :xml do
+    xslt = XML::XSLT.new()
+    xslt.xml = "db/xml/sample.xml"
+    xslt.xsl = "db/xslt/itunes3.xsl"
+    xml = xslt.serve()
+    
+  end
+  
   task :widget do
     if File.exist? "#{ENV['HOME']}/Documents/Sing\ that\ iTune!"
       sh "rsync -avP #{ENV['HOME']}/Documents/Sing\\ that\\ iTune\\!/ db/txt/"
     end
   end
   
-  task :txt do
+  task :txt => :widget do
     txts = Dir['db/txt/*/*.txt']
 
     for file in txts
@@ -25,7 +42,7 @@ namespace :import do
           line = line.split("\r").join("\n")
           song.body += line
         end
-        song.body.gsub!("\n","<br>")
+        #song.body.gsub!("\n","<br>")
         puts "Lyrics added to #{song.title} by #{song.artist}"
         song.save
       end
