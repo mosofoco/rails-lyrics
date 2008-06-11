@@ -1,6 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
 
 namespace :import do
+  task :widget do
+    if File.exist? "#{ENV['HOME']}/Documents/Sing\ that\ iTune!"
+      sh "rsync -avP #{ENV['HOME']}/Documents/Sing\\ that\\ iTune\\!/ db/txt/"
+    end
+  end
+  
   task :txt do
     txts = Dir['db/txt/*/*.txt']
 
