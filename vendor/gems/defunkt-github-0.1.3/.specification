@@ -1,0 +1,90 @@
+--- !ruby/object:Gem::Specification 
+name: defunkt-github
+version: !ruby/object:Gem::Version 
+  version: 0.1.3
+platform: ruby
+authors: 
+- Chris Wanstrath, Kevin Ballard
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-05-18 00:00:00 -04:00
+default_executable: github
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: launchy
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: "0"
+    version: 
+description: The official `github` command line helper for simplifying your GitHub experience.
+email: chris@ozmm.org
+executables: 
+- github
+extensions: []
+
+extra_rdoc_files: 
+- bin/github
+- lib/extensions.rb
+- lib/github/command.rb
+- lib/github/helper.rb
+- lib/github.rb
+- LICENSE
+- README
+files: 
+- bin/github
+- commands/commands.rb
+- commands/helpers.rb
+- lib/extensions.rb
+- lib/github/command.rb
+- lib/github/helper.rb
+- lib/github.rb
+- LICENSE
+- Manifest
+- README
+- spec/command_spec.rb
+- spec/extensions_spec.rb
+- spec/github_spec.rb
+- spec/helper_spec.rb
+- spec/spec_helper.rb
+- spec/ui_spec.rb
+- spec/windoze_spec.rb
+- github.gemspec
+has_rdoc: true
+homepage: http://github.com/
+post_install_message: 
+rdoc_options: 
+- --line-numbers
+- --inline-source
+- --title
+- Github
+- --main
+- README
+require_paths: 
+- bin
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: github
+rubygems_version: 1.1.1
+signing_key: 
+specification_version: 2
+summary: The official `github` command line helper for simplifying your GitHub experience.
+test_files: []
+
