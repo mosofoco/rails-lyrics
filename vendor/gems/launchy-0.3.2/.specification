@@ -51,6 +51,7 @@ rdoc_options:
 - --title
 - "'launchy -- A helper to launch apps from within ruby programs.'"
 require_paths: 
+- bin
 - lib
 required_ruby_version: !ruby/object:Gem::Requirement 
   requirements: 
