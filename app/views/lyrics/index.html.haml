@@ -1,5 +1,12 @@
-%h1 Listing lyrics
+%h1 Lyrics
+
+%h3{:style => 'color:red'}= flash[:message]
 
 = render :partial => 'lyric', :collection => current_objects
+
+= will_paginate(@current_objects)
+
+- if @search
+  = will_paginate(@search)
 
 = link_to 'New lyric', new_object_path 

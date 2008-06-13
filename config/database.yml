@@ -1,9 +1,17 @@
 # SQLite version 3.x
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
-development:
+development_sqlite:
   adapter: sqlite3
   database: db/development.sqlite3
   timeout: 5000
+  
+development:
+  adapter: mysql
+  encoding: utf8
+  database: lyrics_development
+  username: root
+  password: 
+  socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -13,7 +21,15 @@ test:
   database: db/test.sqlite3
   timeout: 5000
 
-production:
+production_sqlite:
   adapter: sqlite3
   database: db/production.sqlite3
   timeout: 5000
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: lyrics
+  username: root
+  password: 
+  socket: /opt/local/var/run/mysql5/mysqld.sock

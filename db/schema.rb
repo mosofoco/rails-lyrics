@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(:version => 20080611180354) do
     t.string  "title"
     t.string  "artist"
     t.string  "album"
-    t.integer "year"
-    t.integer "track"
+    t.integer "year",   :limit => 11
+    t.integer "track",  :limit => 11
     t.string  "genre"
     t.text    "body"
   end

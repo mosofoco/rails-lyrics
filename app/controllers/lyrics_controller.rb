@@ -1,9 +1,18 @@
 class LyricsController < ApplicationController
   make_resourceful do
     actions :all
+
+  end
+
+  def current_objects
+    @current_objects ||= Lyric.paginate :page => params[:page], :order => "artist ASC, album ASC, track ASC, title ASC"
   end
   
-  def current_objects
-    @current_objects ||= Lyric.find(:all, :order => "artist ASC, title ASC", :limit => 30)
+  def search
+    @search = Ultrasphinx::Search.new(:query => params[:id])
+    @search.run
+    @current_objects = @search.results
+    flash[:message] = "#{@current_objects.size} Results"
+    render :action => 'index'
   end
 end
