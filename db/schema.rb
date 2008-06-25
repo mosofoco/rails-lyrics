@@ -11,6 +11,23 @@
 
 ActiveRecord::Schema.define(:version => 20080611180354) do
 
+  create_table "albums", :force => true do |t|
+    t.integer  "artist_id",   :limit => 11
+    t.string   "name"
+    t.integer  "year",        :limit => 11
+    t.datetime "created_at"
+    t.datetime "modified_at"
+  end
+
+  add_index "albums", ["artist_id"], :name => "index_albums_on_artist_id"
+
+  create_table "artists", :force => true do |t|
+    t.string   "name"
+    t.string   "genre"
+    t.datetime "created_at"
+    t.datetime "modified_at"
+  end
+
   create_table "lyrics", :force => true do |t|
     t.string  "title"
     t.string  "artist"
@@ -20,6 +37,19 @@ ActiveRecord::Schema.define(:version => 20080611180354) do
     t.string  "genre"
     t.text    "body"
   end
+
+  create_table "songs", :force => true do |t|
+    t.integer  "artist_id",   :limit => 11
+    t.integer  "album_id",    :limit => 11
+    t.string   "title"
+    t.text     "body"
+    t.integer  "track",       :limit => 11
+    t.datetime "created_at"
+    t.datetime "modified_at"
+  end
+
+  add_index "songs", ["artist_id"], :name => "index_songs_on_artist_id"
+  add_index "songs", ["album_id"], :name => "index_songs_on_album_id"
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
