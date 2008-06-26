@@ -62,7 +62,7 @@ namespace :import do
       title = file.split("/")[-1]
       title = title[0, title.length - 4]
       
-      song = Lyric.find_or_initialize_by_title_and_artist(artist,title)
+      song = Lyric.find_or_initialize_by_artist_and_title(artist,title)
       if song.body.nil? || song.body.empty?
         f = File.new(file)
         5.times { f.gets }
