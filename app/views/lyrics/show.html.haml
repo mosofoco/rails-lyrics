@@ -8,7 +8,7 @@
       %span.album= h current_object.album
       %span.year= "(#{h current_object.year})"
   %p.body
-    = h(current_object.body).gsub("\n","<br/>")
+    = strip_tags(current_object.body).gsub("\n","<br/>")
     
   - safe_artist = current_object.artist.downcase.gsub(/[^a-zA-Z0-9]/,"")
   - safe_title = current_object.title.downcase.gsub(/[^a-zA-Z0-9]/,"")

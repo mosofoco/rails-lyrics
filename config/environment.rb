@@ -32,6 +32,7 @@ Rails::Initializer.run do |config|
   config.gem "defunkt-github", :lib => 'github', :source => "http://gems.github.com"
   config.gem "ruby-xslt", :lib => "xml/xslt"
   config.gem "libxml-ruby", :lib => "xml/libxml"
+  config.gem "hpricot"
     
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
