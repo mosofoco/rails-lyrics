@@ -28,3 +28,8 @@ a visited {
 
 #sidebar {
   float: right; }
+
+#topbar {
+  text-align: right;
+  margins: 0px;
+  background-color: #666666; }

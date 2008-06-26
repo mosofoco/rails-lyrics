@@ -8,12 +8,17 @@
       %h2 Say something meaningful.
   
     #topbar
+      - if @user
+        %p= "Welcome back, #{@user.login.capitalize}!"
 
     #sidebar
       %ul
-        %li= link_to "Sign In", :controller => 'sessions', :action => 'new'
-        %li= link_to "Sign Out", :controller => 'sessions', :action => 'destroy'
-        %li= link_to "Sign Up", :controller => 'users', :action => 'new'
+        - if !@user
+          %li= link_to "Sign In", :controller => 'sessions', :action => 'new'
+          %li= link_to "Sign Up", :controller => 'users', :action => 'new'
+        - if @user
+          %li= link_to "Sign Out", :controller => 'sessions', :action => 'destroy'
+
 
     #content
       = yield
