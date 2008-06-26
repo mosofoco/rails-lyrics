@@ -13,6 +13,14 @@ class LyricsController < ApplicationController
     render :action => 'index'
   end
   
+  def scrape
+    @current_object = Lyric.find(params[:id])
+    if params[:source] == 'plyrics'
+      @current_object.scrape_plyrics
+      redirect_to :action => 'show', :id => @current_object.id
+    end
+  end
+  
   def search
     @search = Ultrasphinx::Search.new(:query => params[:id])
     @search.run

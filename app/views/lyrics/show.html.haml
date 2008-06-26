@@ -7,13 +7,15 @@
     %h2
       %span.album= h current_object.album
       %span.year= "(#{h current_object.year})"
-  %p.body
-    = strip_tags(current_object.body).gsub("\n","<br/>")
+  - if current_object.body
+    %p.body
+      = strip_tags(current_object.body).gsub("\n","<br/>")
     
   - safe_artist = current_object.artist.downcase.gsub(/[^a-zA-Z0-9]/,"")
   - safe_title = current_object.title.downcase.gsub(/[^a-zA-Z0-9]/,"")
   
   = link_to "Plyrics", "http://www.plyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
+  = link_to "Scrape", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
 
 = link_to 'Edit', edit_object_path
 |
