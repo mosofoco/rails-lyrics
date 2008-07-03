@@ -1,0 +1,28 @@
+!!!
+
+%html
+  %head
+    %title LyricsYouLove
+    = stylesheet_link_tag "reset-fonts-grids", "lyl"
+  
+  #body
+    #doc4.yui-t1
+      #hd
+        %h1 LyricsYouLove
+        %h4 Say something meaningful.
+      
+      #bd
+        #yui-main
+          .yui-b
+            .yui-ge
+              %div{ :class => "first yui-u" }
+                = yield
+          
+              .yui-u
+                = yield :sidebar
+          
+        .yui-b
+          = render :partial => 'application/user'
+          = yield :navigation
+      
+      #ft All lyrics are copyright their respective artist and are presented here for reference only.

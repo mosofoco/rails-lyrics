@@ -1,0 +1,9 @@
+- if @user
+  %p= "Welcome back, #{@user.login.capitalize}!"
+
+%ul
+  - if !@user
+    %li= link_to "Sign In", :controller => 'sessions', :action => 'new'
+    %li= link_to "Sign Up", :controller => 'users', :action => 'new'
+  - if @user
+    %li= link_to "Sign Out", :controller => 'sessions', :action => 'destroy'
