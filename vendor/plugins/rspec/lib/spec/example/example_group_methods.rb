@@ -3,6 +3,8 @@ module Spec
 
     module ExampleGroupMethods
       class << self
+        attr_accessor :matcher_class
+
         def description_text(*args)
           args.inject("") do |result, arg|
             result << " " unless (result == "" || arg.to_s =~ /^(\s|\.|#)/)
@@ -119,7 +121,7 @@ module Spec
 
       def run
         examples = examples_to_run
-        reporter.add_example_group(self)
+        reporter.add_example_group(self) unless examples_to_run.empty?
         return true if examples.empty?
         return dry_run(examples) if dry_run?
 
@@ -322,7 +324,8 @@ module Spec
         all_examples = examples
         return all_examples unless specified_examples?
         all_examples.reject do |example|
-          matcher = ExampleMatcher.new(description.to_s, example.description)
+          matcher = ExampleGroupMethods.matcher_class.
+            new(description.to_s, example.description)
           !matcher.matches?(specified_examples)
         end
       end

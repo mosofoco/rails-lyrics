@@ -1,4 +1,3 @@
-require 'spec/version'
 require 'spec/matchers'
 require 'spec/expectations'
 require 'spec/example'
