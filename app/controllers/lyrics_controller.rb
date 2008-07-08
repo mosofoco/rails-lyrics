@@ -1,7 +1,11 @@
 class LyricsController < ApplicationController
   make_resourceful do
     actions :all
+  end
 
+  def show
+    @safe_artist = current_object.artist.downcase.gsub(/[^a-zA-Z0-9]/,"")
+    @safe_title = current_object.title.downcase.gsub(/[^a-zA-Z0-9]/,"")
   end
 
   def current_objects
