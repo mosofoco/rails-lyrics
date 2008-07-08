@@ -1,26 +1,33 @@
+- safe_artist = current_object.artist.downcase.gsub(/[^a-zA-Z0-9]/,"")
+- safe_title = current_object.title.downcase.gsub(/[^a-zA-Z0-9]/,"")
+
 %div[current_object]
-  %h1
-    %span.title= h current_object.title
-    = " - "
-    %span.artist= h current_object.artist
-  - if current_object.album
-    %h2
-      %span.album= h current_object.album
-      %span.year= "(#{h current_object.year})"
+  .information
+    %h1
+      %span.title= h current_object.title
+      = " - "
+      %span.artist= h current_object.artist
+    - if current_object.album
+      %h2
+        %span.album= h current_object.album
+        %span.year= "(#{h current_object.year})"
+    %br/
+    %h3 See Also:
+    = link_to "Plyrics", "http://www.plyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
+
   - if current_object.body
     %p.body
       = strip_tags(current_object.body).gsub("\n","<br/>")
     
-  - safe_artist = current_object.artist.downcase.gsub(/[^a-zA-Z0-9]/,"")
-  - safe_title = current_object.title.downcase.gsub(/[^a-zA-Z0-9]/,"")
+
   
-  = link_to "Plyrics", "http://www.plyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
-  
-- if @user
-  = link_to "Scrape", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
-  |
-  = link_to 'Edit', edit_object_path
-  |
-  = link_to 'Destroy', object_path, :confirm => 'Really destroy lyric?', :method => :delete
-  |
-= link_to 'Back', objects_path
+#toolbar
+  - if @user
+
+    = link_to "Scrape", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
+    |
+    = link_to 'Edit', edit_object_path
+    |
+    = link_to 'Destroy', object_path, :confirm => 'Really destroy lyric?', :method => :delete
+    |
+  = link_to 'Back', objects_path

@@ -20,3 +20,24 @@ a visited {
   border-style: dashed;
   border-width: 2px;
   background-color: #999944; }
+
+.lyric .information, .lyric #seealso {
+  float: right; }
+.lyric .information {
+  background: #99B;
+  border: 1px solid black;
+  color: white !important;
+  padding: 1em; }
+  .lyric .information .title {
+    font-weight: bold; }
+  .lyric .information .album {
+    font-style: italic; }
+
+#toolbar {
+  background: #000088;
+  border: 2px solid black;
+  color: grey;
+  margin-top: 1em;
+  padding: .5em; }
+  #toolbar a {
+    color: white; }
