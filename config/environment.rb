@@ -33,6 +33,7 @@ Rails::Initializer.run do |config|
   config.gem "ruby-xslt", :lib => "xml/xslt"
   config.gem "libxml-ruby", :lib => "xml/libxml"
   config.gem "hpricot"
+  config.gem "id3lib-ruby", :lib => "id3lib"
     
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
