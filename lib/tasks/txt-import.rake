@@ -10,6 +10,7 @@ def xattr(xml,attribute)
 end
 
 namespace :import do
+  desc "Translate a raw iTunes XML into a more concise (and much smaller) format"
   task :xslt do
     xslt = XML::XSLT.new()
     xslt.xml = "db/xml/shane.xml"
@@ -17,6 +18,7 @@ namespace :import do
     xslt.save("db/output/shane.xml")
   end
   
+  desc "Populate the database with entries from an iTunes XML library"
   task :xml do
     FILES = %w(shane.xml)
     VALID_GENRES = ["rock", "metal", "punk", "punk rock"]
@@ -48,13 +50,15 @@ namespace :import do
     end
   end
   
+  desc "Gather txt lyrics from SingThatiTune widget"
   task :widget do
     if File.exist? "#{ENV['HOME']}/Documents/Sing\ that\ iTune!"
       sh "rsync -avP #{ENV['HOME']}/Documents/Sing\\ that\\ iTune\\!/ db/txt/"
     end
   end
   
-  task :txt => :widget do
+  desc "Parse widget txt files for lyrics"
+  task :txt do
     txts = Dir['db/txt/*/*.txt']
 
     for file in txts
