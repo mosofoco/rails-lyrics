@@ -1,7 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
-require 'xml/libxml'
-require 'xml/xslt'
-require 'hpricot'
 require 'open-uri'
 
 # XML Attribute macro
