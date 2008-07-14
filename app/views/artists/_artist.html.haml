@@ -1,0 +1,22 @@
+%div[artist]
+  %p.name
+    %strong Name
+    = h artist.name
+  %p.genre
+    %strong Genre
+    = h artist.genre
+  %p.website
+    %strong Website
+    = h artist.website
+  %p.label
+    %strong Label
+    = h artist.label
+  %p.members
+    %strong Members
+    = h artist.members
+
+  = link_to 'Show', object_path(artist)
+  |
+  = link_to 'Edit', edit_object_path(artist)
+  |
+  = link_to 'Destroy', object_path(artist), :confirm => 'Really destroy artist?', :method => :delete

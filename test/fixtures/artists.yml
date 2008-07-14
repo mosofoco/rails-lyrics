@@ -1,0 +1,14 @@
+one:
+  id: 1
+  name: MyString
+  genre: MyString
+  website: MyString
+  label: MyString
+  members: MyText
+two:
+  id: 2
+  name: MyString
+  genre: MyString
+  website: MyString
+  label: MyString
+  members: MyText

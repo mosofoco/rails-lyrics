@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :artists
+
   map.resources :lyrics
 
   map.search '/search/:query', :controller => 'lyrics', :action => 'search'
