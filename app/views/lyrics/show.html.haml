@@ -20,7 +20,9 @@
 #toolbar
   - if @user
 
-    = link_to "Scrape", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
+    = link_to "Scrape PLyrics", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
+    |
+    = link_to "Scrape AZLyrics", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
     |
     = link_to 'Edit', edit_object_path
     |
