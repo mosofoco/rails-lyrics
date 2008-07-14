@@ -34,8 +34,9 @@ Rails::Initializer.run do |config|
   config.gem "ruby-xslt", :lib => "xml/xslt"
   config.gem "libxml-ruby", :lib => "xml/libxml", :version => "0.5.2.0"
   config.gem "hpricot"
-  config.gem "id3lib-ruby", :lib => "id3lib"
+#  config.gem "id3lib-ruby", :lib => "id3lib"
   config.gem "chronic"
+  config.gem "Text"         # to be used later for Leve-something Distance
     
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

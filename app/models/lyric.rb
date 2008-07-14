@@ -2,13 +2,16 @@ require 'hpricot'
 require 'open-uri'
 
 class Lyric < ActiveRecord::Base
-  is_indexed :fields => ['artist','album','title','body']
+  is_indexed :fields => ['album','title','body'],
+      :include => [{:association_name => 'artist', :field => 'name', :as => 'artist_name'}]
   
   named_scope :blank, :conditions => { :body => nil }
   
+  belongs_to :artist
+  
   def scrape_plyrics
     song = self
-    art = song.artist.downcase.gsub(/[^a-zA-Z0-9]/,"")
+    art = song.artist.name.downcase.gsub(/[^a-zA-Z0-9]/,"")
     tit = song.title.downcase.gsub(/[^a-zA-Z0-9]/,"")
     url = "http://www.plyrics.com/lyrics/#{art}/#{tit}.html"
     doc = Hpricot(open(url))

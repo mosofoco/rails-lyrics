@@ -4,7 +4,7 @@ class LyricsController < ApplicationController
   end
 
   def show
-    @safe_artist = current_object.artist.downcase.gsub(/[^a-zA-Z0-9]/,"")
+    @safe_artist = current_object.artist.name.downcase.gsub(/[^a-zA-Z0-9]/,"")
     @safe_title = current_object.title.downcase.gsub(/[^a-zA-Z0-9]/,"")
   end
 

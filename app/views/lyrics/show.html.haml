@@ -3,7 +3,7 @@
     %h1
       %span.title= h current_object.title
       = " - "
-      %span.artist= h current_object.artist
+      %span.artist= h current_object.artist.name
     - if current_object.album
       %h2
         %span.album= h current_object.album

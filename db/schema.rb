@@ -9,16 +9,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080611180354) do
+ActiveRecord::Schema.define(:version => 20080714190430) do
+
+  create_table "artists", :force => true do |t|
+    t.string "name"
+    t.string "genre"
+    t.string "website"
+    t.string "label"
+    t.text   "members"
+  end
 
   create_table "lyrics", :force => true do |t|
     t.string  "title"
     t.string  "artist"
     t.string  "album"
-    t.integer "year",   :limit => 11
-    t.integer "track",  :limit => 11
+    t.integer "year",      :limit => 11
+    t.integer "track",     :limit => 11
     t.string  "genre"
     t.text    "body"
+    t.integer "artist_id", :limit => 11
   end
 
   create_table "users", :force => true do |t|
