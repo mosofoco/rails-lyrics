@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   
   config.gem "haml"
+  
 #  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
 #  config.gem "launchy"
 #  config.gem "defunkt-github", :lib => 'github', :source => "http://gems.github.com"
@@ -34,6 +35,7 @@ Rails::Initializer.run do |config|
   config.gem "libxml-ruby", :lib => "xml/libxml", :version => "0.5.2.0"
   config.gem "hpricot"
   config.gem "id3lib-ruby", :lib => "id3lib"
+  config.gem "chronic"
     
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
