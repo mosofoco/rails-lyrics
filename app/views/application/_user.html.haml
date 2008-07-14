@@ -1,4 +1,4 @@
-- if @user
+- if @user and !current_page?(:controller => 'users', :action => 'new')
   %p= "Welcome back, #{@user.login.capitalize}!"
 
 %ul

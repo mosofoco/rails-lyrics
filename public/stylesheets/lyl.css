@@ -13,6 +13,8 @@ a visited {
   #hd h1 {
     font-size: 200%;
     text-transform: uppercase; }
+    #hd h1 a {
+      color: white; }
   #hd h4 {
     font-style: italic; }
 
