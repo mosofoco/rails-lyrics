@@ -31,6 +31,8 @@ a visited {
   border: 1px solid black;
   color: white !important;
   padding: 1em; }
+  .lyric .information a {
+    color: white; }
   .lyric .information .title {
     font-weight: bold; }
   .lyric .information .album {

@@ -5,7 +5,8 @@
 
   #listing
     %h2= "Songs by #{h current_object.name}:"
-    = render :partial => 'lyrics/lyric', :collection => current_object.lyrics
+    - for song in current_object.lyrics
+      %li= link_to h(song.title), lyric_path(song)
 
 #toolbar
   - if @user

@@ -19,7 +19,7 @@ class Lyric < ActiveRecord::Base
     for tag in %w(h1 h2 h3 h4 h5 div)
       (body/tag).remove
     end
-    lines = body.to_s.split("\r\n")
+    lines = body.to_s.gsub("’","\'").split("\r\n")
     for line in lines
       # Replace all variety of HTML breaks with newlines
       line.gsub!(/<br[ ]?[\/]?>/,"\n")

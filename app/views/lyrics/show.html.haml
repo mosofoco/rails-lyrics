@@ -3,7 +3,7 @@
     %h1
       %span.title= h current_object.title
       = " - "
-      %span.artist= h current_object.artist.name
+      %span.artist= link_to h(current_object.artist.name), artist_path(current_object.artist)
     - if current_object.album
       %h2
         %span.album= h current_object.album
@@ -19,11 +19,11 @@
   
 #toolbar
   - if @user
-
-    = link_to "Scrape PLyrics", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
-    |
-    = link_to "Scrape AZLyrics", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
-    |
+    - if current_object.body.blank? #or current_object.body.nil?
+      = link_to "Scrape PLyrics", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
+      |
+      = link_to "Scrape AZLyrics", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
+      |
     = link_to 'Edit', edit_object_path
     |
     = link_to 'Destroy', object_path, :confirm => 'Really destroy lyric?', :method => :delete
