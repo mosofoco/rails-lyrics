@@ -1,0 +1,16 @@
+%div[album]
+  %p.title
+    %strong Title
+    = h album.title
+  %p.year
+    %strong Year
+    = h album.year
+  %p.artist
+    %strong Artist
+    = h album.artist
+
+  = link_to 'Show', object_path(album)
+  |
+  = link_to 'Edit', edit_object_path(album)
+  |
+  = link_to 'Destroy', object_path(album), :confirm => 'Really destroy album?', :method => :delete

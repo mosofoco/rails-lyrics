@@ -1,0 +1,10 @@
+one:
+  id: 1
+  title: MyString
+  year: 1
+  artist: 
+two:
+  id: 2
+  title: MyString
+  year: 1
+  artist: 
