@@ -1,28 +1,31 @@
+!!!
+
 %html
   %head
-    %title Lyrics You Love
-    = stylesheet_link_tag "lyl"
-  %body
-    #header
-      %h1 LyricsYouLove
-      %h2 Say something meaningful.
+    %title LyricsYouLove
+    = stylesheet_link_tag "reset-fonts-grids", "lyl"
   
-    #topbar
-      - if @user
-        %p= "Welcome back, #{@user.login.capitalize}!"
-
-    #sidebar
-      %ul
-        - if !@user
-          %li= link_to "Sign In", :controller => 'sessions', :action => 'new'
-          %li= link_to "Sign Up", :controller => 'users', :action => 'new'
-        - if @user
-          %li= link_to "Sign Out", :controller => 'sessions', :action => 'destroy'
-
-
-    #content
-      = yield
-
-    #footer
-      %p All lyrics are copyright their respective artists and are presented here for educational and reference purposes only.
-      %p Site design and code are copyright (C) Shane Sveller 2008
+  #body
+    #doc4.yui-t1
+      #hd
+        %h1= link_to "LyricsYouLove", "/"
+        %h4 Say something meaningful.
+      
+      #bd
+        #yui-main
+          .yui-b
+            .yui-ge
+              %div{ :class => "first yui-u" }
+                = yield
+          
+              .yui-u
+                = yield :sidebar
+          
+        .yui-b
+          #user= render :partial => 'application/user'
+          #search= render :partial => 'application/search'
+          = yield :navigation
+          - if @user
+            #admin= render :partial => 'application/admin'
+      
+      #ft All lyrics are copyright their respective artist and are presented here for reference only.

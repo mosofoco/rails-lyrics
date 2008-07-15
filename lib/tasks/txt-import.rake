@@ -10,7 +10,7 @@ namespace :import do
   desc "Translate a raw iTunes XML into a more concise (and much smaller) format"
   task :xslt do
     xslt = XML::XSLT.new()
-    xslt.xml = "db/xml/shane.xml"
+    xslt.xml = "db/xml/sample.xml" # CHANGEME
     xslt.xsl = "db/xslt/itunes3.xsl"
     xslt.save("db/output/shane.xml")
   end
@@ -67,7 +67,12 @@ namespace :import do
       title = file.split("/")[-1]
       title = title[0, title.length - 4]
       
-      song = Lyric.find_or_initialize_by_artist_and_title(artist,title)
+      art = Artist.find_by_name(artist)
+      if !art
+        puts "Skipping #{title} by #{artist}"
+        next
+      end
+      song = Lyric.find_or_initialize_by_artist_id_and_title(art.id,title)
       if song.body.nil? || song.body.empty?
         f = File.new(file)
         5.times { f.gets }
