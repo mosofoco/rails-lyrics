@@ -1,6 +1,6 @@
 %div[lyric]
   %p
-    %span.artist= link_to h(lyric.artist.name), object_path(lyric.artist)
+    %span.artist= link_to h(lyric.artist.name), lyric.artist
     = " - "
     %span.title= link_to h(lyric.title), object_path(lyric)
     /= link_to "[Edit]", edit_object_path(lyric)

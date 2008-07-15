@@ -1,24 +1,16 @@
-%h1 Viewing artist
-
 %div[current_object]
-  %p.name
-    %strong Name
-    = h current_object.name
-  %p.genre
-    %strong Genre
+  %h1.name= h current_object.name
+  - if current_object.genre
     = h current_object.genre
-  %p.website
-    %strong Website
-    = h current_object.website
-  %p.label
-    %strong Label
-    = h current_object.label
-  %p.members
-    %strong Members
-    = h current_object.members
 
-= link_to 'Edit', edit_object_path
-|
-= link_to 'Destroy', object_path, :confirm => 'Really destroy artist?', :method => :delete
-|
-= link_to 'Back', objects_path
+  #listing
+    %h2= "Songs by #{h current_object.name}:"
+    = render :partial => 'lyrics/lyric', :collection => current_object.lyrics
+
+#toolbar
+  - if @user
+    = link_to 'Edit', edit_object_path
+    |
+    = link_to 'Destroy', object_path, :confirm => 'Really destroy lyric?', :method => :delete
+    |
+  = link_to 'Back', objects_path

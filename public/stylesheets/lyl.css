@@ -9,7 +9,8 @@ a visited {
 #hd {
   font-family: sans-serif;
   color: white;
-  background-color: #000088; }
+  background-color: #000088;
+  padding: 0em 0em 1em 1em; }
   #hd h1 {
     font-size: 200%;
     text-transform: uppercase; }
@@ -34,6 +35,16 @@ a visited {
     font-weight: bold; }
   .lyric .information .album {
     font-style: italic; }
+
+.artist h1 {
+  font-size: 150%;
+  font-weight: bold; }
+.artist #listing {
+  margin-top: 1em;
+  background: #99B;
+  border: 1px solid black;
+  color: white !important;
+  padding: 0em 2em 0em 2em; }
 
 #toolbar {
   background: #000088;
