@@ -2,7 +2,7 @@ require 'hpricot'
 require 'open-uri'
 
 class Lyric < ActiveRecord::Base
-  is_indexed :fields => ['album','title','body'],
+  is_indexed :fields => ['title','body'],
       :include => [{:association_name => 'artist', :field => 'name', :as => 'artist_name'},
                   {:association_name => 'album', :field => 'title', :as => 'album_title'}]
   
