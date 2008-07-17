@@ -4,8 +4,17 @@
     = h current_object.genre
 
   #listing
+    %h2= "Albums by #{h current_object.name}:"
+    %ul
+    - for album in current_object.albums.sort_by { |album| album.year }
+      %li
+        = link_to h(album.title), album_path(album)
+        = "(#{h album.year})"
+  
+    %br/
     %h2= "Songs by #{h current_object.name}:"
-    - for song in current_object.lyrics
+    %ul
+    - for song in current_object.lyrics.sort_by { |song| song.album.year }
       %li= link_to h(song.title), lyric_path(song)
 
 #toolbar

@@ -20,7 +20,13 @@
                 = yield
           
               .yui-u
-                = yield :sidebar
+                %h1 Browse By:
+                %ul
+                  %li= link_to "Artists", :controller => 'artists', :action => 'index'
+                  %li= link_to "Albums", :controller => 'albums', :action => 'index'
+                  %li= link_to "Songs", :controller => 'lyrics', :action => 'index'
+                  %li= link_to "Tags", "/"
+                #sidebar= yield :sidebar
           
         .yui-b
           #user= render :partial => 'application/user'

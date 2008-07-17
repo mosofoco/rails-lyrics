@@ -1,6 +1,7 @@
-- content_for :navigation do
-  = link_to 'New artist', new_object_path 
-
 = render :partial => 'artist', :collection => current_objects
 
 = will_paginate(@current_objects)
+
+- content_for :sidebar do
+  %h1 Tools:
+  = link_to 'New artist', new_object_path 

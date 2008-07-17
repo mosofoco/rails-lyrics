@@ -1,5 +1,7 @@
-%h1 Listing albums
-
 = render :partial => 'album', :collection => current_objects
 
-= link_to 'New album', new_object_path 
+= will_paginate(@current_objects)
+
+- content_for :sidebar do
+  %h1 Tools:
+  = link_to 'New album', new_object_path 

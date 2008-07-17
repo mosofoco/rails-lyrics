@@ -4,6 +4,12 @@
     - if current_object.year
       = "(#{h current_object.year})"
   %h2.artist= link_to h(current_object.artist.name), artist_path(current_object.artist)
+  
+  #listing
+    %h2= "Songs from #{h current_object.title}:"
+    %ul
+    - for song in current_object.lyrics.sort_by { |song| song.track }
+      %li= link_to h(song.title), lyric_path(song)
 
 #toolbar
   - if @user

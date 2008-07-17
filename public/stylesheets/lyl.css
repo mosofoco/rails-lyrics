@@ -19,11 +19,10 @@ a visited {
   #hd h4 {
     font-style: italic; }
 
-
 #search {
   margin: 1em 0 1em 0; }
 
-#admin {
+#admin, #user, #sidebar {
   margin-top: 2em; }
 
 #bd p .body {
@@ -48,7 +47,8 @@ a visited {
 .artist h1 {
   font-size: 150%;
   font-weight: bold; }
-.artist #listing {
+
+.artist #listing, .album #listing {
   margin-top: 1em;
   background: #99B;
   border: 1px solid black;
