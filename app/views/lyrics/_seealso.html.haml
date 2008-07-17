@@ -1,3 +1,14 @@
+- safe_artist = artist.downcase.gsub(/[^a-zA-Z0-9]/,"")
+- safe_title = title.downcase.gsub(/[^a-zA-Z0-9]/,"")
+- safe_album = album.downcase.gsub(/[^a-zA-Z0-9]/,"")
+- cap_artist = artist.gsub(" ","_").gsub(/[^a-zA-Z0-9\_\(\)]/,"")
+- cap_title = title.gsub(" ","_").gsub(/[^a-zA-Z0-9\_\(\)]/,"")
+
 %h3 See Also:
 = link_to "AZLyrics", "http://www.azlyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
+%br/
 = link_to "Plyrics", "http://www.plyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
+%br/
+= link_to "DarkLyrics", "http://darklyrics.com/lyrics/#{safe_artist}/#{safe_album}.html##{track}"
+%br/
+= link_to "LyricWiki", "http://lyricwiki.org/#{cap_artist}:#{cap_title}"

@@ -6,10 +6,9 @@
       %span.artist= link_to h(current_object.artist.name), artist_path(current_object.artist)
     - if current_object.album
       %h2
-        %span.album= h current_object.album
+        %span.album= link_to h(current_object.album.title), album_path(current_object.album)
         %span.year= "(#{h current_object.year})"
     %br/
-    = render :partial => 'seealso', :locals => { :safe_artist => @safe_artist, :safe_title => @safe_title }
 
   - if current_object.body
     %p.body
@@ -29,3 +28,7 @@
     = link_to 'Destroy', object_path, :confirm => 'Really destroy lyric?', :method => :delete
     |
   = link_to 'Back', objects_path
+  
+- content_for :sidebar do
+  = render :partial => 'seealso', :locals => { :artist => current_object.artist.name, :title => @current_object.title, :album => @current_object.album.title, :track => current_object.track }
+  

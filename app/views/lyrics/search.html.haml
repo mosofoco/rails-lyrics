@@ -1,7 +1,3 @@
-%h1 Lyrics
-
-%h3{:style => 'color:red'}= flash[:message]
-
 = render :partial => 'lyric', :collection => current_objects
 
 /= will_paginate(@current_objects)

@@ -16,6 +16,7 @@
           .yui-b
             .yui-ge
               %div{ :class => "first yui-u" }
+                %h3{:style => 'color:red'}= flash[:message]
                 = yield
           
               .yui-u
