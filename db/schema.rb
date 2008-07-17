@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(:version => 20080715193737) do
 
   create_table "lyrics", :force => true do |t|
     t.string  "title"
-    t.string  "album"
     t.integer "year",      :limit => 11
     t.integer "track",     :limit => 11
     t.string  "genre"

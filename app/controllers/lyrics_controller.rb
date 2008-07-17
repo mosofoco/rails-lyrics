@@ -9,11 +9,11 @@ class LyricsController < ApplicationController
   end
 
   def current_objects
-    @current_objects ||= Lyric.paginate :page => params[:page], :order => "artist_id ASC, album ASC, track ASC, title ASC"
+    @current_objects = Lyric.paginate :page => params[:page], :order => "artist_id ASC, album_id ASC, track ASC, title ASC"
   end
   
   def blank
-    @current_objects = Lyric.blank.paginate :page => params[:page], :order => "artist_id ASC, album ASC, track ASC, title ASC"
+    @current_objects = Lyric.blank.paginate :page => params[:page], :order => "artist_id ASC, album_id ASC, track ASC, title ASC"
     render :action => 'index'
   end
   

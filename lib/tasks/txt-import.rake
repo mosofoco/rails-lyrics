@@ -46,7 +46,7 @@ namespace :import do
           alb.save
         end
 
-        song = Lyric.find_or_initialize_by_title_and_artist_id_and_album_id(title,art.id,alb.id || '')
+        song = Lyric.find_or_initialize_by_title_and_artist_id_and_album_id(title,art.id,alb.id || nil)
         song.year = year
         song.genre = genre
         song.track = track
