@@ -3,11 +3,13 @@ require 'open-uri'
 
 class Lyric < ActiveRecord::Base
   is_indexed :fields => ['album','title','body'],
-      :include => [{:association_name => 'artist', :field => 'name', :as => 'artist_name'}]
+      :include => [{:association_name => 'artist', :field => 'name', :as => 'artist_name'},
+                  {:association_name => 'album', :field => 'title', :as => 'album_title'}]
   
   named_scope :blank, :conditions => { :body => nil }
   
   belongs_to :artist
+  belongs_to :album
   
   def scrape_plyrics
     song = self

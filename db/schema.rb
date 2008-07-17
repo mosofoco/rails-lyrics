@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20080715193737) do
     t.string  "genre"
     t.text    "body"
     t.integer "artist_id", :limit => 11
+    t.integer "album_id",  :limit => 11
   end
 
   create_table "users", :force => true do |t|

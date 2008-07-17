@@ -38,13 +38,21 @@ namespace :import do
         art.genre ||= genre
         puts "New artist: #{artist}" if art.id.nil?
         art.save
+        
+        if !album.blank? && !album.nil?
+          alb = Album.find_or_initialize_by_title_and_artist_id(album, art.id)
+          alb.year ||= year
+          puts "New album: #{album} by #{artist}" if alb.id.nil?
+          alb.save
+        end
 
-        song = Lyric.find_or_initialize_by_title_and_artist_id_and_album(title,art.id,album)
+        song = Lyric.find_or_initialize_by_title_and_artist_id_and_album_id(title,art.id,alb.id || '')
         song.year = year
         song.genre = genre
         song.track = track
         puts "New song: #{title} by #{artist}" if song.id.nil?
         art.lyrics << song
+        alb.lyrics << song if alb
         song.save
 
       end

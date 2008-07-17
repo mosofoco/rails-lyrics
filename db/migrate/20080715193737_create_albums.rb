@@ -5,9 +5,13 @@ class CreateAlbums < ActiveRecord::Migration
       t.column :year, :integer
       t.column :artist_id, :integer
     end
+    
+    add_column :lyrics, :album_id, :integer
+    
   end
 
   def self.down
+    remove_column :lyrics, :album_id
     drop_table :albums
   end
 end

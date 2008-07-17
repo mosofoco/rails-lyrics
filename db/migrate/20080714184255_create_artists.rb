@@ -7,9 +7,13 @@ class CreateArtists < ActiveRecord::Migration
       t.column :label, :string
       t.column :members, :text
     end
+
+    add_column :lyrics, :artist_id, :integer
+
   end
 
   def self.down
     drop_table :artists
+    remove_column :table_name, :column_name
   end
 end
