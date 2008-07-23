@@ -16,6 +16,10 @@ class LyricsController < ApplicationController
     end
   end
   
+  def current_object
+    @current_object = Lyric.find(params[:id], :include => [:artist, :album])
+  end
+  
   def blank
     @current_objects = Lyric.blank.paginate :page => params[:page], :order => "artist_id ASC, album_id ASC, track ASC, title ASC"
     render :action => 'index'

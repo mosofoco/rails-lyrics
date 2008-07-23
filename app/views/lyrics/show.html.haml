@@ -30,5 +30,20 @@
   = link_to 'Back', objects_path
   
 - content_for :sidebar do
-  = render :partial => 'seealso', :locals => { :artist => current_object.artist.name, :title => @current_object.title, :album => @current_object.album.title, :track => current_object.track }
+  - safe_artist = @current_object.artist.name.downcase.gsub(/[^a-zA-Z0-9]/,"")
+  - safe_title = @current_object.title.downcase.gsub(/[^a-zA-Z0-9]/,"")
+  - if @current_object.album
+    - safe_album = @current_object.album.title.downcase.gsub(/[^a-zA-Z0-9]/,"") || "None"
+  - cap_artist = @current_object.artist.name.gsub(" ","_").gsub(/[^a-zA-Z0-9\_\(\)]/,"")
+  - cap_title = @current_object.title.gsub(" ","_").gsub(/[^a-zA-Z0-9\_\(\)]/,"")
+
+  %h3 See Also:
+  = link_to "AZLyrics", "http://www.azlyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
+  %br/
+  = link_to "Plyrics", "http://www.plyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
+  - if safe_artist && safe_album && track
+    %br/
+    = link_to "DarkLyrics", "http://darklyrics.com/lyrics/#{safe_artist}/#{safe_album}.html##{track}"
+  %br/
+  = link_to "LyricWiki", "http://lyricwiki.org/#{cap_artist}:#{cap_title}"
   
