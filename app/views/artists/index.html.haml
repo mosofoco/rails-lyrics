@@ -5,3 +5,6 @@
 - content_for :sidebar do
   %h1 Tools:
   = link_to 'New artist', new_object_path 
+
+- content_for :navigation do
+  = alphabetical_browser('artists')

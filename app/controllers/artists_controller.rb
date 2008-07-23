@@ -4,7 +4,11 @@ class ArtistsController < ApplicationController
   end
   
   def current_objects
-    @current_objects = Artist.paginate :page => params[:page], :order => "name ASC"
+    if params[:letter]
+      @current_objects = Artist.alphabet(params[:letter]).paginate :page => params[:page], :order => "name ASC"
+    else
+      @current_objects = Artist.paginate :page => params[:page], :order => "name ASC"
+    end
   end
   
 end
