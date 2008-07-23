@@ -2,9 +2,14 @@ require 'hpricot'
 require 'open-uri'
 
 class Lyric < ActiveRecord::Base
-  is_indexed :fields => ['title','body'],
-      :include => [{:association_name => 'artist', :field => 'name', :as => 'artist_name'},
-                  {:association_name => 'album', :field => 'title', :as => 'album_title'}]
+  define_index do
+    indexes title, :sortable => true
+    indexes body
+    indexes artist.name, :as => :artist, :sortable => true
+    indexes album.title, :as => :album, :sortable => true
+    
+    has artist_id, album_id
+  end
   
   named_scope :blank, :conditions => { :body => nil }
   named_scope :alphabet, lambda { |letter| { :conditions => ['title like ?', "#{letter}%"], :order => 'title ASC' } }

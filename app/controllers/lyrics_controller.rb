@@ -30,9 +30,7 @@ class LyricsController < ApplicationController
   end
   
   def search
-    @search = Ultrasphinx::Search.new(:query => params[:query])
-    @search.run
-    @current_objects = @search.results
+    @current_objects = Lyric.search params[:query]
     flash[:message] = "#{@current_objects.size} Results"
     #render :action => 'index'
   end

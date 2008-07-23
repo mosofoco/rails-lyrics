@@ -1,8 +1,6 @@
-= render :partial => 'lyric', :collection => current_objects
+= render :partial => 'lyric', :collection => @current_objects
 
-/= will_paginate(@current_objects)
+= will_paginate(@current_objects)
 
-- if @search
-  = will_paginate(@search)
-
-= link_to 'New lyric', new_object_path 
+- content_for :sidebar do
+  = link_to 'New lyric', new_object_path 
