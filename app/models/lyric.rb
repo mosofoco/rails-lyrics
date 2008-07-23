@@ -7,6 +7,7 @@ class Lyric < ActiveRecord::Base
                   {:association_name => 'album', :field => 'title', :as => 'album_title'}]
   
   named_scope :blank, :conditions => { :body => nil }
+  named_scope :alphabet, lambda { |letter| { :conditions => ['title like ?', "#{letter}%"], :order => 'title ASC' } }
   
   belongs_to :artist
   belongs_to :album

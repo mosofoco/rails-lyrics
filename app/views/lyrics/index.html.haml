@@ -1,6 +1,9 @@
-- content_for :navigation do
-  = link_to 'New lyric', new_object_path 
-
 = render :partial => 'lyric', :collection => current_objects
 
 = will_paginate(@current_objects)
+
+- content_for :sidebar do
+  = link_to 'New lyric', new_object_path 
+
+- content_for :navigation do
+  = alphabetical_browser('lyrics')
