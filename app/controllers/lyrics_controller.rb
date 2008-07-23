@@ -10,9 +10,9 @@ class LyricsController < ApplicationController
 
   def current_objects
     if params[:letter]
-      @current_objects = Lyric.alphabet(params[:letter]).paginate :page => params[:page]
+      @current_objects = Lyric.alphabet(params[:letter]).paginate( :page => params[:page], :include => [:artist] )
     else
-      @current_objects = Lyric.paginate :page => params[:page], :order => "title ASC"
+      @current_objects = Lyric.paginate :page => params[:page], :order => "title ASC", :include => [:artist]
     end
   end
   

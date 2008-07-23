@@ -1,27 +1,27 @@
-%div[current_object]
+%div[@current_object]
   .information
     %h1
-      %span.title= h current_object.title
+      %span.title= h @current_object.title
       = " - "
-      %span.artist= link_to h(current_object.artist.name), artist_path(current_object.artist)
-    - if current_object.album
+      %span.artist= link_to h(@current_object.artist.name), artist_path(@current_object.artist)
+    - if @current_object.album
       %h2
-        %span.album= link_to h(current_object.album.title), album_path(current_object.album)
-        %span.year= "(#{h current_object.year})"
+        %span.album= link_to h(@current_object.album.title), album_path(@current_object.album)
+        %span.year= "(#{h @current_object.year})"
     %br/
 
-  - if current_object.body
+  - if @current_object.body
     %p.body
-      = strip_tags(current_object.body).gsub("\n","<br/>")
+      = strip_tags(@current_object.body).gsub("\n","<br/>")
     
 
   
 #toolbar
   - if @user
-    - if current_object.body.blank? #or current_object.body.nil?
-      = link_to "Scrape PLyrics", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
+    - if @current_object.body.blank? #or @current_object.body.nil?
+      = link_to "Scrape PLyrics", :controller => 'lyrics', :action => 'scrape', :id => @current_object.id, :source => 'plyrics'
       |
-      = link_to "Scrape AZLyrics", :controller => 'lyrics', :action => 'scrape', :id => current_object.id, :source => 'plyrics'
+      = link_to "Scrape AZLyrics", :controller => 'lyrics', :action => 'scrape', :id => @current_object.id, :source => 'plyrics'
       |
     = link_to 'Edit', edit_object_path
     |
@@ -41,9 +41,8 @@
   = link_to "AZLyrics", "http://www.azlyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
   %br/
   = link_to "Plyrics", "http://www.plyrics.com/lyrics/#{safe_artist}/#{safe_title}.html"
-  - if safe_artist && safe_album && track
+  - if safe_artist && safe_album && @current_object.track
     %br/
-    = link_to "DarkLyrics", "http://darklyrics.com/lyrics/#{safe_artist}/#{safe_album}.html##{track}"
+    = link_to "DarkLyrics", "http://darklyrics.com/lyrics/#{safe_artist}/#{safe_album}.html##{@current_object.track}"
   %br/
   = link_to "LyricWiki", "http://lyricwiki.org/#{cap_artist}:#{cap_title}"
-  
