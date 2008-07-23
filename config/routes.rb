@@ -1,18 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :albums
-
-  map.resources :artists
-
-  map.resources :lyrics
-
-  map.search '/search/:query', :controller => 'lyrics', :action => 'search'
+#  map.search '/search/:query', :controller => 'lyrics', :action => 'search'
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
-  map.resources :users
 
+  map.resources :albums
+  map.resources :artists
+  map.resources :lyrics
+
+  map.resources :users
   map.resource :session
 
   # The priority is based upon order of creation: first created -> highest priority.
