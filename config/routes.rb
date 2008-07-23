@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-#  map.search '/search/:query', :controller => 'lyrics', :action => 'search'
+  map.search '/search/:query', :controller => 'lyrics', :action => 'search'
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'

@@ -4,6 +4,10 @@ class AlbumsController < ApplicationController
   end
   
   def current_objects
-    @current_objects = Album.paginate :page => params[:page], :order => "title ASC"
+    if params[:letter]
+      @current_objects = Album.alphabet(params[:letter]).paginate :page => params[:page], :include => :artist
+    else
+      @current_objects = Album.paginate( :page => params[:page], :order => "title ASC", :include => [:artist])
+    end
   end
 end

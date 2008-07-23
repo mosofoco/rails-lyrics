@@ -1,20 +1,20 @@
 %div[current_object]
-  %h1.name= h current_object.name
-  - if current_object.genre
-    = h current_object.genre
+  %h1.name= h @current_object.name
+  - if @current_object.genre
+    = h @current_object.genre
 
   #listing
-    %h2= "Albums by #{h current_object.name}:"
+    %h2= "Albums by #{h @current_object.name}:"
     %ul
-    - for album in current_object.albums.sort_by { |album| album.year }
+    - for album in @current_object.albums.all(:order => 'year ASC')
       %li
         = link_to h(album.title), album_path(album)
         = "(#{h album.year})"
   
     %br/
-    %h2= "Songs by #{h current_object.name}:"
+    %h2= "Songs by #{h @current_object.name}:"
     %ul
-    - for song in current_object.lyrics.sort_by { |song| song.album.year }
+    - for song in @current_object.lyrics.all(:order => 'album_id ASC, track ASC')
       %li= link_to h(song.title), lyric_path(song)
 
 #toolbar
