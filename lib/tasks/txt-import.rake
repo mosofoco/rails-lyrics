@@ -10,14 +10,16 @@ namespace :import do
   desc "Translate a raw iTunes XML into a more concise (and much smaller) format"
   task :xslt do
     xslt = XML::XSLT.new()
-    xslt.xml = "db/xml/sample.xml" # CHANGEME
     xslt.xsl = "db/xslt/itunes3.xsl"
-    xslt.save("db/output/shane.xml")
+    for file in %w(shane.xml kevin1.xml)
+      xslt.xml = "db/xml/#{file}" # CHANGEME
+      xslt.save("db/output/#{file}")
+    end
   end
   
   desc "Populate the database with entries from an iTunes XML library"
   task :xml do
-    FILES = %w(shane.xml)
+    FILES = %w(shane.xml kevin1.xml)
     VALID_GENRES = ["rock", "metal", "punk", "punk rock"]
     for file in FILES
       doc = XML::Document.file("#{RAILS_ROOT}/db/output/#{file}")
@@ -80,7 +82,11 @@ namespace :import do
         puts "Skipping #{title} by #{artist}"
         next
       end
-      song = Lyric.find_or_initialize_by_artist_id_and_title(art.id,title)
+      song = Lyric.find_by_artist_id_and_title(art.id,title)
+      if !song
+        puts "Skipping #{title} by #{artist}"
+        next
+      end
       if song.body.nil? || song.body.empty?
         f = File.new(file)
         5.times { f.gets }
@@ -91,7 +97,7 @@ namespace :import do
           song.body += line
         end
         #song.body.gsub!("\n","<br>")
-        puts "Lyrics added to #{song.title} by #{song.artist}"
+        puts "Lyrics added to #{song.title} by #{song.artist.name}"
         song.save
       end
     end
