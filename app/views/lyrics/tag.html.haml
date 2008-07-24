@@ -1,0 +1,14 @@
+%h1 Tagging lyric
+
+= error_messages_for :lyric
+
+- form_for(:lyric, :url => {:action => 'tag', :id => @current_object}, :html => { :method => :put }) do |f|
+  %p
+    %label{:for => "lyric_tags"} Tag with: (Comma separated)
+    = f.text_field :tags
+  
+  %p= submit_tag "Tag"
+
+= link_to 'Show', object_path
+|
+= link_to 'Back', objects_path

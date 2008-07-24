@@ -8,8 +8,8 @@
       %h2
         %span.album= link_to h(@current_object.album.title), album_path(@current_object.album)
         %span.year= "(#{h @current_object.year})"
-    %br/
-    - if @current_object.tag_list
+    - if !@current_object.tag_list.empty?
+      %br/
       #tagged
         %h3 Tagged With:
         - for tag in @current_object.tag_list.sort

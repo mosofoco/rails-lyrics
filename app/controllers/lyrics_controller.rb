@@ -45,7 +45,7 @@ class LyricsController < ApplicationController
   end
   
   def tagged
-    @current_objects = Lyric.find_tagged_with(params[:tag])
+    @current_objects = Lyric.find_tagged_with(params[:id])
   end
   
 end
