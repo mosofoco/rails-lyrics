@@ -17,6 +17,8 @@ class Lyric < ActiveRecord::Base
   belongs_to :artist
   belongs_to :album
   
+  acts_as_taggable_on :tags, :emotions, :themes, :tones
+  
   def scrape_plyrics
     song = self
     art = song.artist.name.downcase.gsub(/[^a-zA-Z0-9]/,"")

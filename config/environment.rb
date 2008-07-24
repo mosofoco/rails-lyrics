@@ -28,7 +28,6 @@ Rails::Initializer.run do |config|
   
   config.gem "haml"
   
-#  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
 #  config.gem "launchy"
 #  config.gem "defunkt-github", :lib => 'github', :source => "http://gems.github.com"
   config.gem "ruby-xslt", :lib => "xml/xslt"
@@ -37,6 +36,8 @@ Rails::Initializer.run do |config|
 #  config.gem "id3lib-ruby", :lib => "id3lib"
 #  config.gem "chronic"
 #  config.gem "Text"         # to be used later for Leve-something Distance
+  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
+#  config.gem 'mbleigh-uberkit', :source => "http://gems.github.com/", :lib => "uberkit"
     
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

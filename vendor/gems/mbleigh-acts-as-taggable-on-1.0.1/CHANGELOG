@@ -1,7 +1,3 @@
-== 2008-07-17
-
-* Can now use a named_scope to find tags!
-
 == 2008-06-23
 
 * Can now find related objects of another class (tristanzdunn)

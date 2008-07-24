@@ -9,20 +9,24 @@ class LyricsController < ApplicationController
   end
 
   def current_objects
-    if params[:letter]
-      @current_objects = Lyric.alphabet(params[:letter]).paginate( :page => params[:page], :include => [:artist] )
-    else
-      @current_objects = Lyric.paginate :page => params[:page], :order => "title ASC", :include => [:artist]
-    end
+      @current_objects ||= Lyric.paginate :page => params[:page], :order => "title ASC", :include => [:artist]
   end
   
   def current_object
-    @current_object = Lyric.find(params[:id], :include => [:artist, :album])
+    @current_object ||= Lyric.find(params[:id], :include => [:artist, :album])
   end
   
   def blank
     @current_objects = Lyric.blank.paginate :page => params[:page], :order => "artist_id ASC, album_id ASC, track ASC, title ASC"
     render :action => 'index'
+  end
+  
+  def index
+    if params[:letter]
+      @current_objects = Lyric.alphabet(params[:letter]).paginate( :page => params[:page], :include => [:artist] )
+    else
+      current_objects
+    end
   end
   
   def scrape
@@ -34,9 +38,14 @@ class LyricsController < ApplicationController
   end
   
   def search
-    @current_objects = Lyric.search params[:query]
+    @query = params[:query]
+    @current_objects = Lyric.search @query
     flash[:message] = "#{@current_objects.size} Results"
     #render :action => 'index'
+  end
+  
+  def tagged
+    @current_objects = Lyric.find_tagged_with(params[:tag])
   end
   
 end

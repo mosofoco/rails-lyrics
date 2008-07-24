@@ -1,4 +1,10 @@
-= render :partial => 'lyric', :collection => @current_objects
+- for lyric in @current_objects
+  %div[lyric]
+    %p
+      %span.artist= link_to h(lyric.artist.name), :controller => 'artists', :action => 'show', :id => lyric.artist, :highlight => @query
+      = " - "
+      %span.title= link_to h(lyric.title), :controller => 'lyrics', :action => 'show', :id => lyric, :highlight => @query
+
 
 = will_paginate(@current_objects)
 
