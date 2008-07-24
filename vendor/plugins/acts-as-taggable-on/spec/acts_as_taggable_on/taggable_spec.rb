@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe "Taggable" do
   before(:each) do
+    [TaggableModel, Tag, Tagging, TaggableUser].each(&:delete_all)
     @taggable = TaggableModel.new(:name => "Bob Jones")
   end
   
@@ -11,6 +12,13 @@ describe "Taggable" do
     @taggable.save
     
     Tag.find(:all).size.should == 3
+  end
+  
+  it "should be able to create tags through the tag list directly" do
+    @taggable.tag_list_on(:test).add("hello")
+    @taggable.save    
+    @taggable.reload
+    @taggable.tag_list_on(:test).should == ["hello"]
   end
   
   it "should differentiate between contexts" do
@@ -46,6 +54,15 @@ describe "Taggable" do
     TaggableModel.find_tagged_with("ruby").first.should == @taggable
     TaggableModel.find_tagged_with("bob", :on => :skills).first.should_not == @taggable
     TaggableModel.find_tagged_with("bob", :on => :tags).first.should == @taggable
+  end
+  
+  it "should be able to use the tagged_with named scope" do
+    @taggable.skill_list = "ruby, rails, css"
+    @taggable.tag_list = "bob, charlie"
+    @taggable.save
+    TaggableModel.tagged_with("ruby", {}).first.should == @taggable
+    TaggableModel.tagged_with("bob", :on => :skills).first.should_not == @taggable
+    TaggableModel.tagged_with("bob", :on => :tags).first.should == @taggable
   end
   
   it "should not care about case" do
@@ -89,8 +106,9 @@ describe "Taggable" do
     TaggableModel.find_tagged_with("spinning", :on => :rotors).should_not be_empty
   end
   
-  context "inheritance" do
+  describe "Single Table Inheritance" do
     before do
+      [TaggableModel, Tag, Tagging, TaggableUser].each(&:delete_all)
       @taggable = TaggableModel.new(:name => "taggable")
       @inherited_same = InheritingTaggableModel.new(:name => "inherited same")
       @inherited_different = AlteredInheritingTaggableModel.new(:name => "inherited different")

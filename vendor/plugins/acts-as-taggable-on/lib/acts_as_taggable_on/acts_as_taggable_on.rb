@@ -6,12 +6,17 @@ module ActiveRecord
       end
       
       module ClassMethods
+        def taggable?
+          false
+        end
+        
         def acts_as_taggable
           acts_as_taggable_on :tags
         end
         
         def acts_as_taggable_on(*args)
-          puts "Registering #{args.inspect} with #{self.inspect}"
+          args.flatten! if args
+          args.compact! if args
           for tag_type in args
             tag_type = tag_type.to_s
             self.class_eval do
@@ -21,6 +26,10 @@ module ActiveRecord
             end
             
             self.class_eval <<-RUBY
+              def self.taggable?
+                true
+              end
+              
               def self.caching_#{tag_type.singularize}_list?
                 caching_tag_list_on?("#{tag_type}")
               end
@@ -46,18 +55,21 @@ module ActiveRecord
               end
               
               def find_related_#{tag_type}(options = {})
-                related_tags_on('#{tag_type}',options)
+                related_tags_for('#{tag_type}', self.class, options)
               end
               alias_method :find_related_on_#{tag_type}, :find_related_#{tag_type}
+
+              def find_related_#{tag_type}_for(klass, options = {})
+                related_tags_for('#{tag_type}', klass, options)
+              end
             RUBY
           end      
           
           if respond_to?(:tag_types)
-            puts "Appending #{args.inspect} onto #{tag_types.inspect}"
-            write_inheritable_attribute(:tag_types, tag_types + args)
+            write_inheritable_attribute( :tag_types, (tag_types + args).uniq )
           else
             self.class_eval do
-              write_inheritable_attribute(:tag_types, args)
+              write_inheritable_attribute(:tag_types, args.uniq)
               class_inheritable_reader :tag_types
             
               has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag
@@ -67,6 +79,12 @@ module ActiveRecord
             
               before_save :save_cached_tag_list
               after_save :save_tags
+              
+              if respond_to?(:named_scope)
+                named_scope :tagged_with, lambda{ |tags, options|
+                  find_options_for_find_tagged_with(tags, options)
+                }
+              end
             end
             
             include ActiveRecord::Acts::TaggableOn::InstanceMethods
@@ -207,9 +225,10 @@ module ActiveRecord
         
         def tag_list_on(context, owner=nil)
           var_name = context.to_s.singularize + "_list"
+          add_custom_context(context)
           return instance_variable_get("@#{var_name}") unless instance_variable_get("@#{var_name}").nil?
         
-          if !owner && self.class.caching_tag_list_on?(context) and !(cached_value = cached_tag_list_on(context, owner)).nil?
+          if !owner && self.class.caching_tag_list_on?(context) and !(cached_value = cached_tag_list_on(context)).nil?
             instance_variable_set("@#{var_name}", TagList.from(self["cached_#{var_name}"]))
           else
             instance_variable_set("@#{var_name}", TagList.new(*tags_on(context, owner).map(&:name)))
@@ -238,18 +257,22 @@ module ActiveRecord
         def tag_counts_on(context,options={})
           self.class.tag_counts_on(context,{:conditions => ["#{Tag.table_name}.name IN (?)", tag_list_on(context)]}.reverse_merge!(options))
         end
-        
-        def related_tags_on(context, options={})
-          tags_to_find = self.tags_on(context).collect {|t| t.name}
-          search_conditions = { 
-            :select     => "#{self.class.table_name}.*, COUNT(#{Tag.table_name}.id) AS count", 
-            :from       => "#{self.class.table_name}, #{Tag.table_name}, #{Tagging.table_name}",
-            :conditions => ["#{self.class.table_name}.id != #{self.id} AND #{self.class.table_name}.id = #{Tagging.table_name}.taggable_id AND #{Tagging.table_name}.taggable_type = '#{self.class.to_s}' AND #{Tagging.table_name}.tag_id = #{Tag.table_name}.id AND #{Tag.table_name}.name IN (?)",tags_to_find],
-            :group      => "#{self.class.table_name}.id",
+
+        def related_tags_for(context, klass, options = {})
+          search_conditions = related_search_options(context, klass, options)
+
+          klass.find(:all, search_conditions)
+        end
+
+        def related_search_options(context, klass, options = {})
+          tags_to_find = self.tags_on(context).collect { |t| t.name }
+
+          { :select     => "#{klass.table_name}.*, COUNT(#{Tag.table_name}.id) AS count", 
+            :from       => "#{klass.table_name}, #{Tag.table_name}, #{Tagging.table_name}",
+            :conditions => ["#{klass.table_name}.id = #{Tagging.table_name}.taggable_id AND #{Tagging.table_name}.taggable_type = '#{klass.to_s}' AND #{Tagging.table_name}.tag_id = #{Tag.table_name}.id AND #{Tag.table_name}.name IN (?)", tags_to_find],
+            :group      => "#{klass.table_name}.id",
             :order      => "count DESC"
           }.update(options)
-          
-          self.class.find(:all, search_conditions)
         end
         
         def save_cached_tag_list

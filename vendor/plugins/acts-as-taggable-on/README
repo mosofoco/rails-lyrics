@@ -35,11 +35,22 @@ GemPlugin
 Acts As Taggable On is also available as a gem plugin using Rails 2.1's gem dependencies.
 To install the gem, add this to your config/environment.rb:
   
-  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com"
+  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
   
 After that, you can run "rake gems:install" to install the gem if you don't already have it.
 See http://ryandaigle.com/articles/2008/4/1/what-s-new-in-edge-rails-gem-dependencies for
 additional details about gem dependencies in Rails.
+
+** NOTE **
+Some issues have been experienced with "rake gems:install". If that doesn't work to install the gem,
+try just installing it as a normal gem:
+
+  gem install mbleigh-acts-as-taggable-on --source http://gems.github.com
+
+Post Installation (Rails)
+-------------------------
+1. script/generate acts_as_taggable_on_migration
+2. rake db/migrate
 
 Testing
 =======
@@ -65,15 +76,35 @@ end
 @user.tags # => [<Tag name:"awesome">,<Tag name:"slick">,<Tag name:"hefty">]
 @user.skills # => [<Tag name:"joking">,<Tag name:"clowning">,<Tag name:"boxing">]
 
+# The old way
 User.find_tagged_with("awesome", :on => :tags) # => [@user]
 User.find_tagged_with("awesome", :on => :skills) # => []
+
+# The better way (utilizes named_scope)
+User.tagged_with("awesome", :on => :tags) # => [@user]
+User.tagged_with("awesome", :on => :skills) # => []
 
 @frankie = User.create(:name => "Frankie", :skill_list => "joking, flying, eating")
 User.skill_counts # => [<Tag name="joking" count=2>,<Tag name="clowning" count=1>...]
 @frankie.skill_counts
 
+Finding Tagged Objects
+======================
+
+Acts As Taggable On utilizes Rails 2.1's named_scope to create an association
+for tags. This way you can mix and match to filter down your results, and it
+also improves compatibility with the will_paginate gem:
+
+class User < ActiveRecord::Base
+  acts_as_taggable_on :tags
+  named_scope :by_join_date, :order => "created_at DESC"
+end
+
+User.tagged_with("awesome").by_date
+User.tagged_with("awesome").by_date.paginate(:page => params[:page], :per_page => 20)
+
 Relationships
-====================
+=============
 
 You can find objects of the same type based on similar tags on certain contexts.
 Also, objects will be returned in descending order based on the total number of 
@@ -135,14 +166,19 @@ Contributors
 ============
 
 * Michael Bleigh - Original Author
-* Brendan Lim - Related objects
+* Brendan Lim - Related Objects
 * Pradeep Elankumaran - Taggers
+* Sinclair Bain - Patch King
 
 Patch Contributors
 ------------------
 
+* tristanzdunn - Related objects of other classes
+* azabaj - Fixed migrate down
 * Peter Cooper - named_scope fix
 * slainer68 - STI fix
+* harrylove - migration instructions and fix-ups
+* lawrencepit - cached tag work
 
 Resources
 =========
