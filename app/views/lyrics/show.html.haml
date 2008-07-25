@@ -17,7 +17,10 @@
 
   - if @current_object.body
     %p.body
-      = strip_tags(@current_object.body).gsub("\n","<br/>")
+      - if params[:highlight]
+        = highlight( strip_tags(@current_object.body).gsub("\n","<br/>"), params[:highlight] )
+      - else
+        = strip_tags(@current_object.body).gsub("\n","<br/>")
     
 
   
