@@ -39,9 +39,22 @@ class LyricsController < ApplicationController
   
   def search
     @query = params[:query]
-    @current_objects = Lyric.search @query
+    @current_objects = Lyric.search(@query)
     flash[:message] = "#{@current_objects.size} Results"
     #render :action => 'index'
+  end
+  
+  def tag
+    @current_object = Lyric.find(params[:id])
+    if params[:tags]
+      @tag_list = @current_object.tag_list.join(", ") + params[:tags]
+      @current_object.tag_list = @tag_list
+      @current_object.save
+      flash[:message] = "Tags saved."
+      redirect_to lyric_path(@current_object)
+    end
+    
+      
   end
   
   def tagged

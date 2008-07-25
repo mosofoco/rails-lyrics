@@ -28,6 +28,8 @@
       |
       = link_to "Scrape AZLyrics", :controller => 'lyrics', :action => 'scrape', :id => @current_object.id, :source => 'plyrics'
       |
+    = link_to 'Tag', :controller => 'lyrics', :action => 'tag', :id => @current_object
+    |
     = link_to 'Edit', edit_object_path
     |
     = link_to 'Destroy', object_path, :confirm => 'Really destroy lyric?', :method => :delete

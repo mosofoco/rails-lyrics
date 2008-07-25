@@ -15,4 +15,10 @@ class ArtistsController < ApplicationController
     @current_object = Artist.find(params[:id], :include => [:albums, :lyrics])
   end
   
+  def show
+    current_object
+    @albums = Album.find_all_by_artist_id(@current_object.id, :include => :lyrics, :order => 'year ASC')
+    @lyrics = @current_object.lyrics.all(:joins => :album, :order => 'albums.year, track')
+  end
+  
 end

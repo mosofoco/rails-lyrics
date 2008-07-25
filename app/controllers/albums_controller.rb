@@ -10,4 +10,8 @@ class AlbumsController < ApplicationController
       @current_objects = Album.paginate( :page => params[:page], :order => "title ASC", :include => [:artist])
     end
   end
+  
+  def show
+    @current_objects = Album.find(params[:id], :include => :lyrics)
+  end
 end

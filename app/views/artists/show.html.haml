@@ -6,7 +6,7 @@
   #listing
     %h2= "Albums by #{h @current_object.name}:"
     %ul
-    - for album in @current_object.albums.all(:order => 'year ASC')
+    - for album in @albums
       %li
         = link_to h(album.title), album_path(album)
         = "(#{h album.year})"
@@ -14,13 +14,13 @@
     %br/
     %h2= "Songs by #{h @current_object.name}:"
     %ul
-    - for song in @current_object.lyrics.all(:order => 'album_id ASC, track ASC')
+    - for song in @lyrics
       %li= link_to h(song.title), lyric_path(song)
 
 #toolbar
   - if @user
     = link_to 'Edit', edit_object_path
     |
-    = link_to 'Destroy', object_path, :confirm => 'Really destroy lyric?', :method => :delete
+    = link_to 'Destroy', object_path, :confirm => 'Really destroy artist?', :method => :delete
     |
   = link_to 'Back', objects_path

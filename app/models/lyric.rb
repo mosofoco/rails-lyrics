@@ -5,8 +5,6 @@ class Lyric < ActiveRecord::Base
   define_index do
     indexes title, :sortable => true
     indexes body
-    indexes artist.name, :as => :artist, :sortable => true
-    indexes album.title, :as => :album, :sortable => true
     
     has artist_id, album_id
   end
