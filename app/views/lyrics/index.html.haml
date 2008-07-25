@@ -3,7 +3,7 @@
 = will_paginate(@current_objects)
 
 - content_for :sidebar do
-  = link_to 'New lyric', new_object_path 
+  = alphabetical_browser('lyrics')
 
 - content_for :navigation do
-  = alphabetical_browser('lyrics')
+  = link_to 'New lyric', new_object_path 

@@ -3,8 +3,8 @@
 = will_paginate(@current_objects)
 
 - content_for :sidebar do
+  = alphabetical_browser('albums')
+  
+- content_for :navigation do
   %h1 Tools:
   = link_to 'New album', new_object_path 
-
-- content_for :navigation do
-  = alphabetical_browser('albums')
